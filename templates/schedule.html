@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horario para {{ teacher }}</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <script src="/static/js/bootstrap.bundle.min.js"></script>
+</head>
+<body class="bg-dark text-light">
+    <div class="container my-5">
+        <h1 class="text-center mb-4">Horario para {{ teacher }}</h1>
+
+        <!-- Table-based Schedule -->
+        <div class="table-responsive">
+            <table class="table table-dark table-bordered">
+                <thead>
+                    <tr>
+                        <th>Hora</th>
+                        <th>Lunes</th>
+                        <th>Martes</th>
+                        <th>Miércoles</th>
+                        <th>Jueves</th>
+                        <th>Viernes</th>
+                        <th>Sábado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for time in ["10:00", "10:45", "11:30", "12:15", "13:00", "13:45", "14:30", "15:15", "16:00", "16:45", "17:30", "18:15", "19:00"] %}
+                        <tr>
+                            <td>{{ time }}</td>
+                            {% for day in ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado"] %}
+                                <td>
+                                    {% if schedule[day].get(time) %}
+                                        {{ schedule[day][time].type }}
+                                        {% if schedule[day][time].type == "class" %}
+                                            <br>
+                                            {{ schedule[day][time].name }}<br>
+                                            {{ schedule[day][time].instrument }}
+                                        {% endif %}
+                                    {% else %}
+                                        -
+                                    {% endif %}
+                                </td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <a href="{{ url_for('home') }}" class="btn btn-outline-light d-block mt-3 text-center">Volver</a>
+    </div>
+</body>
+</html>

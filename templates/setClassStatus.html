@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estado de clase</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <script src="/static/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function updateStudentName() {
+            const teacher = document.getElementById("teacher").value;
+            const date = document.getElementById("date").value;
+            const time = document.getElementById("time").value;
+
+            if (teacher && date && time) {
+                fetch(`/getStudentName?teacher=${teacher}&date=${date}&time=${time}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.name) {
+                            document.getElementById("name").value = data.name;
+                        } else if (data.error) {
+                            alert(data.error);
+                        }
+                    })
+                    .catch(error => console.error("Error fetching student name:", error));
+            }
+        }
+
+        function validateForm() {
+            const teacher = document.getElementById("teacher").value.trim();
+            const date = document.getElementById("date").value.trim();
+            const time = document.getElementById("time").value.trim();
+            const action = document.getElementById("action").value.trim();
+
+            const submitButton = document.getElementById("submitButton");
+            submitButton.disabled = !(teacher && date && time && action); // Notes field is optional
+        }
+
+        function setToday() {
+            const today = new Date();
+            const formattedDate = today.toISOString().split('T')[0];
+            document.getElementById('date').value = formattedDate;
+            validateForm();
+        }
+    </script>
+</head>
+<body class="bg-dark text-light">
+    <div class="container my-5">
+        <h1 class="text-center mb-4">Establecer Estado de Clase</h1>
+        <form method="post" class="p-4 rounded bg-dark text-light shadow">
+            <div class="mb-3">
+                <label for="teacher" class="form-label">Maestro:</label>
+                <select name="teacher" id="teacher" class="form-select bg-dark text-light border-secondary" onchange="updateStudentName(); validateForm()" required>
+                    {% for teacher in teachers %}
+                        <option value="{{ teacher }}">{{ teacher }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Date and Time on the same row -->
+            <div class="row g-3 mb-3">
+                <div class="col-md-6">
+                    <label for="date" class="form-label">Fecha:</label>
+                    <div class="d-flex align-items-center">
+                        <input type="date" name="date" id="date" class="form-control me-2 bg-dark text-light border-secondary" onchange="updateStudentName(); validateForm()" required>
+                        <button type="button" class="btn btn-outline-light" onclick="setToday()">Hoy</button>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="time" class="form-label">Hora:</label>
+                    <select name="time" id="time" class="form-select bg-dark text-light border-secondary" onchange="updateStudentName(); validateForm()" required>
+                        {% for time in ["10:00", "10:45", "11:30", "12:15", "13:00", "13:45", "14:30", "15:15", "16:00", "16:45", "17:30", "18:15", "19:00"] %}
+                            <option value="{{ time }}">{{ time }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <!-- Student Name and Action on the same row -->
+            <div class="row g-3 mb-3">
+                <div class="col-md-6">
+                    <label for="name" class="form-label">Nombre del Estudiante:</label>
+                    <input type="text" name="name" id="name" class="form-control bg-dark text-light border-secondary" readonly>
+                </div>
+                <div class="col-md-6">
+                    <label for="action" class="form-label">Acción:</label>
+                    <select name="action" id="action" class="form-select bg-dark text-light border-secondary" onchange="validateForm()" required>
+                        <option value="cancelled">Cancelado</option>
+                        <option value="confirmed">Confirmado</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="notes" class="form-label">Notas (Opcional):</label>
+                <input type="text" name="notes" id="notes" class="form-control bg-dark text-light border-secondary">
+            </div>
+
+            <button type="submit" id="submitButton" class="btn btn-success w-100" disabled>Aceptar</button>
+            <a href="{{ url_for('home') }}" class="btn btn-outline-light d-block mt-3 text-center text-light">Volver</a>
+        </form>
+    </div>
+</body>
+</html>

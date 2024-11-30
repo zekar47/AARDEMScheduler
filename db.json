@@ -1,0 +1,195 @@
+{
+  "teachers": {
+    "Cesar": {
+      "schedule": {
+        "lunes": {
+          "14:30": {
+            "type": "free",
+            "time": "14:30"
+          },
+          "15:15": {
+            "type": "free",
+            "time": "15:15"
+          },
+          "16:00": {
+            "type": "free",
+            "time": "16:00"
+          },
+          "16:45": {
+            "type": "free",
+            "time": "16:45"
+          },
+          "17:30": {
+            "type": "free",
+            "time": "17:30"
+          },
+          "18:15": {
+            "type": "free",
+            "time": "18:15"
+          },
+          "19:00": {
+            "type": "free",
+            "time": "19:00"
+          }
+        },
+        "martes": {
+          "14:30": {
+            "type": "free",
+            "time": "14:30"
+          },
+          "15:15": {
+            "type": "free",
+            "time": "15:15"
+          },
+          "16:00": {
+            "type": "free",
+            "time": "16:00"
+          },
+          "16:45": {
+            "type": "free",
+            "time": "16:45"
+          },
+          "17:30": {
+            "type": "free",
+            "time": "17:30"
+          },
+          "18:15": {
+            "type": "free",
+            "time": "18:15"
+          },
+          "19:00": {
+            "type": "free",
+            "time": "19:00"
+          }
+        },
+        "miercoles": {
+          "14:30": {
+            "type": "free",
+            "time": "14:30"
+          },
+          "15:15": {
+            "type": "free",
+            "time": "15:15"
+          },
+          "16:00": {
+            "type": "free",
+            "time": "16:00"
+          },
+          "16:45": {
+            "type": "free",
+            "time": "16:45"
+          },
+          "17:30": {
+            "type": "free",
+            "time": "17:30"
+          },
+          "18:15": {
+            "type": "free",
+            "time": "18:15"
+          },
+          "19:00": {
+            "type": "free",
+            "time": "19:00"
+          }
+        },
+        "jueves": {
+          "14:30": {
+            "type": "free",
+            "time": "14:30"
+          },
+          "15:15": {
+            "type": "free",
+            "time": "15:15"
+          },
+          "16:00": {
+            "type": "free",
+            "time": "16:00"
+          },
+          "16:45": {
+            "type": "free",
+            "time": "16:45"
+          },
+          "17:30": {
+            "type": "free",
+            "time": "17:30"
+          },
+          "18:15": {
+            "type": "free",
+            "time": "18:15"
+          },
+          "19:00": {
+            "type": "free",
+            "time": "19:00"
+          }
+        },
+        "viernes": {
+          "14:30": {
+            "type": "free",
+            "time": "14:30"
+          },
+          "15:15": {
+            "type": "free",
+            "time": "15:15"
+          },
+          "16:00": {
+            "type": "free",
+            "time": "16:00"
+          },
+          "16:45": {
+            "type": "free",
+            "time": "16:45"
+          },
+          "17:30": {
+            "type": "free",
+            "time": "17:30"
+          },
+          "18:15": {
+            "type": "free",
+            "time": "18:15"
+          },
+          "19:00": {
+            "type": "free",
+            "time": "19:00"
+          }
+        },
+        "sabado": {
+          "10:00": {
+            "time": "10:00",
+            "type": "class",
+            "name": "Christian agust\u00edn henry",
+            "instrument": "Piano"
+          },
+          "10:45": {
+            "type": "free",
+            "time": "10:45"
+          },
+          "11:30": {
+            "type": "free",
+            "time": "11:30"
+          },
+          "12:15": {
+            "type": "free",
+            "time": "12:15"
+          },
+          "13:00": {
+            "type": "free",
+            "time": "13:00"
+          },
+          "13:45": {
+            "type": "free",
+            "time": "13:45"
+          },
+          "14:30": {
+            "type": "free",
+            "time": "14:30"
+          },
+          "15:15": {
+            "type": "free",
+            "time": "15:15"
+          }
+        }
+      },
+      "overrides": {}
+    }
+  }
+}

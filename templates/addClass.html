@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Clase</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <script src="/static/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Function to dynamically update form fields
+        function updateForm() {
+            const classType = document.getElementById("classType").value;
+            const dayField = document.getElementById("dropdownDayField");
+            const dateField = document.getElementById("dateField");
+            const studentFields = document.getElementById("studentFields");
+            const submitButton = document.getElementById("submitButton");
+            const timeField = document.getElementById("timeField");
+
+            // Reset visibility
+            dayField.style.display = "none";
+            dateField.style.display = "none";
+            studentFields.style.display = "none";
+            timeField.style.display = "none";
+
+            // Show fields based on selection
+            if (classType === "free" || classType === "blocked") {
+                dayField.style.display = "block";
+                timeField.style.display = "block";
+            } else if (classType === "class") {
+                dayField.style.display = "block";
+                timeField.style.display = "block";
+                studentFields.style.display = "flex";
+            } else if (classType === "trial" || classType === "makeup") {
+                dateField.style.display = "block";
+                timeField.style.display = "block";
+                studentFields.style.display = "flex";
+            }
+
+            validateForm(); // Check form validity
+        }
+
+        // Function to validate the form
+        function validateForm() {
+            // Get all fields in the form
+            const allFields = document.querySelectorAll("select:enabled, input:enabled");
+            const submitButton = document.getElementById("submitButton");
+        
+            // Filter only visible fields
+            const visibleFields = Array.from(allFields).filter(field => {
+                return field.offsetParent !== null; // offsetParent is null for hidden elements
+            });
+        
+            // Check if all visible fields are filled
+            const allFilled = visibleFields.every(field => field.value.trim());
+        
+            submitButton.disabled = !allFilled; // Enable or disable the submit button
+        }
+    </script>
+</head>
+<body class="bg-dark text-light">
+    <div class="container my-5">
+        <h1 class="text-center mb-4">Agregar una Nueva Clase</h1>
+        <form method="POST" class="p-4 rounded bg-dark text-light shadow">
+            <!-- Teacher and Class Type -->
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="teacher" class="form-label">Seleccionar Profesor:</label>
+                    <select id="teacher" name="teacher" class="form-select bg-dark text-light border-secondary" required onchange="validateForm()">
+                        {% for teacher in teachers %}
+                            <option value="{{ teacher }}">{{ teacher }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="classType" class="form-label">Tipo de Clase:</label>
+                    <select id="classType" name="classType" class="form-select bg-dark text-light border-secondary" required onchange="updateForm()">
+                        <option value="">--Seleccionar--</option>
+                        <option value="class">Clase Regular</option>
+                        <option value="free">Libre</option>
+                        <option value="blocked">Bloqueado</option>
+                        <option value="trial">Clase de Prueba</option>
+                        <option value="makeup">Clase de Reposición</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Day and Time -->
+            <div class="row mb-3">
+                <div id="dropdownDayField" class="col-md-6" style="display:none;">
+                    <label for="day" class="form-label">Día:</label>
+                    <select id="day" name="day" class="form-select bg-dark text-light border-secondary" onchange="validateForm()">
+                        <option value="">--Seleccionar Día--</option>
+                        <option value="lunes">Lunes</option>
+                        <option value="martes">Martes</option>
+                        <option value="miercoles">Miércoles</option>
+                        <option value="jueves">Jueves</option>
+                        <option value="viernes">Viernes</option>
+                        <option value="sabado">Sábado</option>
+                    </select>
+                </div>
+                <div id="dateField" class="col-md-6" style="display:none;">
+                    <label for="date" class="form-label">Fecha:</label>
+                    <input type="date" id="date" name="date" class="form-control bg-dark text-light border-secondary" onchange="validateForm()">
+                </div>
+                <div id="timeField" class="col-md-6" style="display:none;">
+                    <label for="time" class="form-label">Hora:</label>
+                    <select id="time" name="time" class="form-select bg-dark text-light border-secondary" onchange="validateForm()">
+                        <option value="">--Seleccionar Hora--</option>
+                    {% for time in ["10:00", "10:45", "11:30", "12:15", "13:00", "13:45", "14:30", "15:15", "16:00", "16:45", "17:30", "18:15", "19:00"] %}
+                        <option value="{{ time }}">{{ time }}</option>
+                    {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <!-- Student Name and Instrument -->
+            <div id="studentFields" class="row mb-3" style="display:none;">
+                <div class="col-md-6">
+                    <label for="studentName" class="form-label">Nombre del Estudiante:</label>
+                    <input type="text" id="studentName" name="studentName" class="form-control bg-dark text-light border-secondary" onchange="validateForm()">
+                </div>
+                <div class="col-md-6">
+                    <label for="instrument" class="form-label">Instrumento:</label>
+                    <input type="text" id="instrument" name="instrument" class="form-control bg-dark text-light border-secondary" onchange="validateForm()">
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button id="submitButton" type="submit" class="btn btn-success w-100" disabled>Aceptar</button>
+            <a href="{{ url_for('home') }}" class="btn btn-outline-light d-block mt-3 text-center">Volver</a>
+        </form>
+    </div>
+</body>
+</html>

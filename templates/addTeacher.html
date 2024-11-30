@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Maestro</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <script src="/static/js/bootstrap.bundle.min.js"></script>
+</head>
+<body class="bg-dark text-light">
+    <div class="container my-5">
+        <h1 class="text-center mb-4">Agregar un Nuevo Maestro</h1>
+        
+        <form method="POST" class="needs-validation" novalidate>
+            <!-- Name Field -->
+            <div class="mb-3">
+                <label for="name" class="form-label">Nombre del Maestro:</label>
+                <input type="text" id="name" name="name" class="form-control bg-dark text-light border-secondary" required>
+                <div class="invalid-feedback">
+                    Por favor, ingresa el nombre del maestro.
+                </div>
+            </div>
+
+            <!-- Spreadsheet Link Field -->
+            <div class="mb-3">
+                <label for="spreadsheetLink" class="form-label">Enlace a Google Sheets:</label>
+                <input type="url" id="spreadsheetLink" name="spreadsheetLink" class="form-control bg-dark text-light border-secondary" required>
+                <div class="invalid-feedback">
+                    Por favor, ingresa un enlace válido.
+                </div>
+            </div>
+
+            <!-- Bot Email Notification -->
+            <div class="alert alert-warning">
+                Asegúrate de compartir el permiso de edición con la cuenta:
+                <br>
+                <strong>{{ bot_email }}</strong>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-success w-100">Aceptar</button>
+        </form>
+
+        <div class="text-center mt-4">
+            <a href="{{ url_for('home') }}" class="btn btn-outline-light w-100">Volver</a>
+        </div>
+    </div>
+
+    <script>
+        // Example Bootstrap validation for form
+        (function () {
+            'use strict';
+            const forms = document.querySelectorAll('.needs-validation');
+            Array.prototype.slice.call(forms).forEach((form) => {
+                form.addEventListener('submit', (event) => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        })();
+    </script>
+</body>
+</html>
+
